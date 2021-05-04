@@ -20,7 +20,7 @@ Fact uav-near-tall-obstacle Identified by uav * distance * height * relative-hei
 // Obligation found in 2019/947 Appendix, UAS.STS-01.020 UAS operations in STS-01:
 // UAS operations in STS-01 shall be conducted: (1) keeping the unmanned aircraft in VLOS at all times; 
 // Definition of VLOS:
-// ‘Visual line of sight operation’ (‘VLOS’) means a type of UAS operation in which, the remote pilot is able to maintain continuous unaided visual contact with the unmanned aircraft, allowing the remote pilot to control the flight path of the unmanned aircraft in relation to other aircraft, people and obstacles for the purpose of avoiding collisions;
+// Visual line of sight operation (VLOS) means a type of UAS operation in which, the remote pilot is able to maintain continuous unaided visual contact with the unmanned aircraft, allowing the remote pilot to control the flight path of the unmanned aircraft in relation to other aircraft, people and obstacles for the purpose of avoiding collisions;
 Fact uav-in-vlos Identified by uav
 
 Fact distance Identified by Int
