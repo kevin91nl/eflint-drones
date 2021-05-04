@@ -23,9 +23,11 @@ Fact uav-near-tall-obstacle Identified by uav * distance * height * relative-hei
 // Visual line of sight operation (VLOS) means a type of UAS operation in which, the remote pilot is able to maintain continuous unaided visual contact with the unmanned aircraft, allowing the remote pilot to control the flight path of the unmanned aircraft in relation to other aircraft, people and obstacles for the purpose of avoiding collisions;
 Fact uav-in-vlos Identified by uav
 
+
 Fact distance Identified by Int
 Fact height Identified by Int
 Fact relative-height Identified by Int
+
 
 Duty is-in-vlos
   Holder uav
