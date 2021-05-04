@@ -1,0 +1,3 @@
+[submodule "eflint"]
+	path = eflint
+	url = https://gitlab.com/eflint/haskell-implementation.git
