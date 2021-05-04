@@ -1,0 +1,13 @@
+---
+Resource: 2019/947 Appendix
+URL: https://www.easa.europa.eu/sites/default/files/dfu/Draft%20Annex%20to%20Draft%20Com%20Impl%20Reg%20%28EU%29%20...-...%20amending%20Reg%202019-947.pdf
+---
+UAS.STS-01.010 General provisions
+(1) During flight, the unmanned aircraft shall be maintained within 120m from the closest point of the surface of the earth. The measurement of distances shall be adapted according to the geographical characteristics of the terrain, such as plains, hills, mountains.
+(2) When flying an unmanned aircraft within a horizontal distance of 50m from an artificial obstacle taller than 105 metres, the maximum height of the UAS operation may be increased up to 15m above the height of the obstacle at the request of the entity responsible for the obstacle.
+(3) The maximum height of the operational volume shall not exceed 30m above the maximum height allowed in points (1) and (2).
+(4) During flight, the unmanned aircraft shall not carry dangerous goods.
+
+UAS.STS-01.020 UAS operations in STS-01
+UAS operations in STS-01 shall be conducted:
+(1) keeping the unmanned aircraft in VLOS at all times;

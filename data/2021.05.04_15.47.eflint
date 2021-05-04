@@ -1,0 +1,76 @@
+#
+
+// Basic facts (values specified in "domains" section)
+Fact remotepilot
+Fact uav
+Fact claimant
+
+// Basic relations
+Fact in-flight Identified by uav
+Fact is-controller-of Identified by remotepilot * uav
+
+// Obligation found in 2019/947 Appendix, UAS.STS-01.010 General provisions:
+// (1) During flight, the unmanned aircraft shall be maintained within 120m from the closest point of the surface of the earth. The measurement of distances shall be adapted according to the geographical characteristics of the terrain, such as plains, hills, mountains.
+Fact uav-within-earth-distance Identified by uav * distance When distance < 120
+
+// Permission found in 2019/947 Appendix, UAS.STS-01.010 General provisions:
+// (2) When flying an unmanned aircraft within a horizontal distance of 50m from an artificial obstacle taller than 105 metres, the maximum height of the UAS operation may be increased up to 15m above the height of the obstacle at the request of the entity responsible for the obstacle. 
+Fact uav-near-tall-obstacle Identified by uav * distance * height * relative-height When (height >= 105 && distance <= 50 && relative-height <= 15) || relative-height == 0
+
+// Obligation found in 2019/947 Appendix, UAS.STS-01.020 UAS operations in STS-01:
+// UAS operations in STS-01 shall be conducted: (1) keeping the unmanned aircraft in VLOS at all times; 
+// Definition of VLOS:
+// ‘Visual line of sight operation’ (‘VLOS’) means a type of UAS operation in which, the remote pilot is able to maintain continuous unaided visual contact with the unmanned aircraft, allowing the remote pilot to control the flight path of the unmanned aircraft in relation to other aircraft, people and obstacles for the purpose of avoiding collisions;
+Fact uav-in-vlos Identified by uav
+
+Fact distance Identified by Int
+Fact height Identified by Int
+Fact relative-height Identified by Int
+
+Duty is-in-vlos
+  Holder uav
+  Claimant claimant
+  Violated when !uav-in-vlos(uav)
+
+// The take of action checks the preconditions and creates the fly safe duty
+Act start-flight
+  Actor remotepilot
+  Recipient uav
+  Conditioned by is-controller-of(remotepilot, uav)
+  Creates 
+    in-flight(uav),
+    is-in-vlos(uav, remotepilot)
+
+// When landing, the fly safe duty is removed
+Act end-flight
+  Actor remotepilot
+  Recipient uav
+  Conditioned by in-flight(uav)
+  Terminates in-flight(uav)
+
+##
+
+Fact remotepilot Identified by RemotePilot
+Fact uav Identified by Drone
+
+###
+
+start-flight.
+end-flight.
+is-in-vlos.
+
+####
+
++is-controller-of(remotepilot=RemotePilot, uav=Drone).
++uav-in-vlos(uav=uav).
++uav-within-earth-distance(uav=Drone, distance=0).
+start-flight(remotepilot=RemotePilot, uav=Drone).
+
+// The UAV should be in VLOS at all times, removing the property that the UAV is in VLOS will yield a violation
+-uav-in-vlos(uav=uav).
+
+// Check whether it is allowed to fly 13 meters above the height of a tall building which is at 20 meters horizontal distance, has a height of 106 meters
++uav-near-tall-obstacle(uav=Drone, distance=20, height=106, relative-height=13).
+
+// Check whether it is allowed to fly 1 meter above the height of a tall building which is at 60 meters horizontal distance, has a height of 106 meters => VIOLATION
++uav-near-tall-obstacle(uav=Drone, distance=60, height=106, relative-height=1).
