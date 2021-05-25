@@ -6,12 +6,21 @@ services:
       - "5000:5000"
     volumes:
       - ./data:/data
-  jupyter:
-    image: jupyter/scipy-notebook
-    ports:
-      - "8888:8888"
+  lab:
+    image: jupyter/base-notebook
     volumes:
-      - ./notebooks:/home/jovyan/
+     - ./notebooks/:/home/jovyan/notebooks
+     - ./data:/home/jovyan/data
+    ports:
+      - "9999:9999"
     environment:
-      JUPYTER_ENABLE_LAB: "yes"
-    command: "start-notebook.sh --NotebookApp.token='' --NotebookApp.password=''"
+      - JUPYTER_ENABLE_LAB=1
+    command:
+      - jupyter
+      - lab
+      - --ip=0.0.0.0
+      - --port=9999
+      - --no-browser
+      - --ServerApp.password=''
+      - --ServerApp.token=''
+      - --allow-root
