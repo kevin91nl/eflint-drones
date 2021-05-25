@@ -57,22 +57,22 @@ Fact uav Identified by Drone
 
 ###
 
-start-flight.
-end-flight.
-is-in-vlos.
+// start-flight.
+// end-flight.
+// is-in-vlos.
 
 ####
 
-+is-controller-of(remotepilot=RemotePilot, uav=Drone).
-+uav-in-vlos(uav=uav).
-+uav-within-earth-distance(uav=Drone, distance=0).
-start-flight(remotepilot=RemotePilot, uav=Drone).
+// +is-controller-of(remotepilot=RemotePilot, uav=Drone).
+// +uav-in-vlos(uav=uav).
+// +uav-within-earth-distance(uav=Drone, distance=0).
+// start-flight(remotepilot=RemotePilot, uav=Drone).
 
 // The UAV should be in VLOS at all times, removing the property that the UAV is in VLOS will yield a violation
--uav-in-vlos(uav=uav).
+// -uav-in-vlos(uav=uav).
 
 // Check whether it is allowed to fly 13 meters above the height of a tall building which is at 20 meters horizontal distance, has a height of 106 meters
-+uav-near-tall-obstacle(uav=Drone, distance=20, height=106, relative-height=13).
+// +uav-near-tall-obstacle(uav=Drone, distance=20, height=106, relative-height=13).
 
 // Check whether it is allowed to fly 1 meter above the height of a tall building which is at 60 meters horizontal distance, has a height of 106 meters => VIOLATION
-+uav-near-tall-obstacle(uav=Drone, distance=60, height=106, relative-height=1).
+// +uav-near-tall-obstacle(uav=Drone, distance=60, height=106, relative-height=1).
