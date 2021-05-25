@@ -26,3 +26,7 @@ docker run eflint-api -p5000:5000
 ## Development
 
 Follow the steps in the `eflint/README.md` file for a local installation of eFLINT. Make sure to add the `eflint-repl` executable to your `/usr/local/bin` such that it can be executed.
+
+## e-FLINT documentation
+
+e-FLINT documentation can be found on the [e-FLINT GitLab](https://gitlab.com/eflint/haskell-implementation).
