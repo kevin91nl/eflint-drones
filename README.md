@@ -11,16 +11,10 @@ git pull
 git submodule update --init
 ```
 
-Then, build the eFLINT API using the following command (this might take a while):
+Then, build and run the e-FLINT server and a Jupyter Lab server using the following command:
 
 ```bash
-docker build . --tag eflint-api
-```
-
-Afterwards, you can run the eFLINT API:
-
-```bash
-docker run eflint-api -p5000:5000
+docker-compose up
 ```
 
 ## Development
