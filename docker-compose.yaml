@@ -1,0 +1,17 @@
+version: "3"
+services:
+  eflint:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./data:/data
+  jupyter:
+    image: jupyter/scipy-notebook
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./notebooks:/home/jovyan/
+    environment:
+      JUPYTER_ENABLE_LAB: "yes"
+    command: "start-notebook.sh --NotebookApp.token='' --NotebookApp.password=''"
