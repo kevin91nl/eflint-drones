@@ -11,11 +11,19 @@ git pull
 git submodule update --init
 ```
 
-Then, build and run the e-FLINT server and a Jupyter Lab server using the following command:
+Then, build the e-FLINT server and a Jupyter Lab server using the following command (also after doing a `git pull`):
+
+```bash
+docker-compose build
+```
+
+And then, run the e-FLINT server and Jupyter Lab server:
 
 ```bash
 docker-compose up
 ```
+
+After loading, it should be possible to access [localhost:9999](http://localhost:9999/) in the browser on which Jupyter Lab runs.
 
 ## Development
 
