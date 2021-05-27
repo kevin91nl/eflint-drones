@@ -23,7 +23,7 @@ And then, run the e-FLINT server and Jupyter Lab server:
 docker-compose up
 ```
 
-After loading, it should be possible to access [localhost:9999](http://localhost:9999/) in the browser on which Jupyter Lab runs.
+After loading, it should be possible to access [localhost:9999](http://localhost:9999/) in the browser on which Jupyter Lab runs and the notebooks can be found in the `notebooks` folder.
 
 ## Development
 
