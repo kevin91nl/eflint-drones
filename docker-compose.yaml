@@ -3,23 +3,25 @@ services:
   eflint:
     build: .
     ports:
-      - "5000:5000"
+      - "0.0.0.0:5000:5000"
+    tty: true
     volumes:
       - ./data:/data
+    command: ["eflint-server", "/data/in-flight.eflint", "5000", "--debug"]
   lab:
     image: jupyter/base-notebook
+    ports:
+      - "0.0.0.0:9999:9999"
     volumes:
      - ./notebooks/:/home/jovyan/notebooks
      - ./data:/home/jovyan/data
-    ports:
-      - "9999:9999"
     environment:
       - JUPYTER_ENABLE_LAB=1
     command:
       - jupyter
       - lab
-      - --ip=0.0.0.0
-      - --port=9999
+      - --ServerApp.ip='*'
+      - --ServerApp.port=9999
       - --no-browser
       - --ServerApp.password=''
       - --ServerApp.token=''
