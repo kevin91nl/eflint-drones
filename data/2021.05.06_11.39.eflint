@@ -23,11 +23,9 @@ Fact uav-near-tall-obstacle Identified by uav * distance * height * relative-hei
 // Visual line of sight operation (VLOS) means a type of UAS operation in which, the remote pilot is able to maintain continuous unaided visual contact with the unmanned aircraft, allowing the remote pilot to control the flight path of the unmanned aircraft in relation to other aircraft, people and obstacles for the purpose of avoiding collisions;
 Fact uav-in-vlos Identified by uav
 
-
 Fact distance Identified by Int
 Fact height Identified by Int
 Fact relative-height Identified by Int
-
 
 Duty is-in-vlos
   Holder uav
@@ -57,22 +55,22 @@ Fact uav Identified by Drone
 
 ###
 
-// start-flight.
-// end-flight.
-// is-in-vlos.
+start-flight.
+end-flight.
+is-in-vlos.
 
 ####
 
-// +is-controller-of(remotepilot=RemotePilot, uav=Drone).
-// +uav-in-vlos(uav=uav).
-// +uav-within-earth-distance(uav=Drone, distance=0).
-// start-flight(remotepilot=RemotePilot, uav=Drone).
++is-controller-of(remotepilot=RemotePilot, uav=Drone).
++uav-in-vlos(uav=uav).
++uav-within-earth-distance(uav=Drone, distance=0).
+start-flight(remotepilot=RemotePilot, uav=Drone).
 
 // The UAV should be in VLOS at all times, removing the property that the UAV is in VLOS will yield a violation
-// -uav-in-vlos(uav=uav).
+//-uav-in-vlos(uav=uav).
 
 // Check whether it is allowed to fly 13 meters above the height of a tall building which is at 20 meters horizontal distance, has a height of 106 meters
-// +uav-near-tall-obstacle(uav=Drone, distance=20, height=106, relative-height=13).
++uav-near-tall-obstacle(uav=Drone, distance=20, height=106, relative-height=13).
 
 // Check whether it is allowed to fly 1 meter above the height of a tall building which is at 60 meters horizontal distance, has a height of 106 meters => VIOLATION
-// +uav-near-tall-obstacle(uav=Drone, distance=60, height=106, relative-height=1).
+//+uav-near-tall-obstacle(uav=Drone, distance=60, height=106, relative-height=1).

@@ -1,0 +1,86 @@
+#
+
+Fact person
+Fact uav
+Fact claimant
+
+Fact operator-of Identified by uav * person
+Fact has-safe-distance Identified by uav
+Fact flies-over-assemblies-of-people Identified by uav
+Fact has-unmanned-aircraft-observer Identified by uav
+Fact is-in-vlos Identified by uav
+Fact is-in-follow-me-mode Identified by uav
+Fact has-observer Identified by uav
+Fact within-allowed-earth-surface-range Identified by uav
+Fact carries-dangerous-goods Identified by uav
+Fact drops-material Identified by uav
+Fact flies-over-unallowed-area Identified by uav
+
+Duty fly-safe-distance
+  Holder uav
+  Claimant claimant
+  Violated when !has-safe-distance(uav) || flies-over-assemblies-of-people(uav)
+
+Duty is-in-sight
+  Holder uav
+  Claimant claimant
+  Violated when !is-in-vlos(uav) && !is-in-follow-me-mode(uav) && !has-observer(uav)
+
+Duty close-to-earth
+  Holder uav
+  Claimant claimant
+  Violated when !within-allowed-earth-surface-range(uav)
+
+Duty no-dangerous-goods
+  Holder uav
+  Claimant claimant
+  Violated when carries-dangerous-goods(uav=uav)
+
+Duty does-not-drops-material
+  Holder uav
+  Claimant claimant
+  Violated when drops-material(uav=uav)
+
+Duty fly-over-allowed-area
+  Holder uav
+  Claimant claimant
+  Violated when flies-over-unallowed-area(uav=uav)
+
+Act take-off
+  Actor uav
+  Recipient uav
+  Creates
+    fly-safe-distance(uav=uav),
+    is-in-sight(uav=uav),
+    close-to-earth(uav=uav),
+    no-dangerous-goods(uav=uav),
+    does-not-drops-material(uav=uav),
+    fly-over-allowed-area(uav=uav)
+
+Act land
+  Actor uav
+  Recipient uav
+  Terminates
+    fly-safe-distance(uav=uav),
+    is-in-sight(uav=uav),
+    close-to-earth(uav=uav)
+
+##
+
+Fact person Identified by Alice, Bob
+Fact uav Identified by DroneOfAlice, DroneOfBob
+Fact claimant Identified by Everyone
+
+###
+
+take-off.
+land.
+
+####
+
++has-safe-distance(DroneOfAlice).
++is-in-follow-me-mode(DroneOfAlice).
++within-allowed-earth-surface-range(DroneOfAlice).
+take-off(Alice, DroneOfAlice).
++flies-over-assemblies-of-people(DroneOfAlice).
+land(Alice, DroneOfAlice).

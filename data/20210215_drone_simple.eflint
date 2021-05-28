@@ -1,0 +1,54 @@
+// Tested via http://grotius.uvalight.net/eflintonline/#
+// Date:  2021-02-15
+// By:    Kevin Jacobs
+
+#
+
+Fact operator
+Fact aircraft
+Fact memberstate
+Fact operates-aircraft Identified by operator * aircraft
+Fact has-insurance Identified by operator * aircraft
+
+Act is-operator
+  Actor operator
+  Recipient aircraft
+  Related to memberstate
+  Creates operates-aircraft(operator, aircraft), need-insurance(operator=operator, memberstate=memberstate, aircraft=aircraft)
+  Holds when !operates-aircraft(operator, aircraft)
+
+Act buy-insurance
+  Actor operator
+  Recipient aircraft
+  Related to memberstate
+  Conditioned by need-insurance(operator=operator, memberstate=memberstate, aircraft=aircraft)
+  Terminates need-insurance(operator=operator, memberstate=memberstate, aircraft=aircraft)
+
+Act take-off
+  Actor operator
+  Recipient aircraft
+  Related to memberstate
+  Conditioned by !need-insurance(operator=operator, memberstate=memberstate, aircraft=aircraft)
+
+Duty need-insurance
+  Holder operator
+  Claimant memberstate
+  Related to aircraft
+
+##
+
+Fact operator Identified by Alice
+Fact aircraft Identified by Drone
+Fact memberstate Identified by Netherlands
+
+###
+
+is-operator.
+take-off.
+buy-insurance.
+
+####
+
+is-operator(operator=Alice, aircraft=Drone, memberstate=Netherlands).
+//buy-insurance(operator=Alice, aircraft=Drone, memberstate=Netherlands).
+take-off(operator=Alice, aircraft=Drone, memberstate=Netherlands).

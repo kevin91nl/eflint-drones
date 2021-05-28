@@ -1,0 +1,66 @@
+#
+
+// Basic facts (values specified in "domains" section)
+Fact remote-pilot
+Fact mtom Identified by Int
+Fact location
+Fact uav
+Fact claimant
+
+// Basic relations
+Fact in-flight Identified by uav
+Fact kept-at-safe-distance Identified by uav
+Fact flown-over-assemblies Identified by uav
+
+// Duty fly safe models that the UAV should be kept at a safe distance and not flown over assemblies of people when the UAV is in a flight
+Duty duty-fly-safe
+  Holder uav
+  Claimant uav
+  Violated when in-flight(uav) && (!kept-at-safe-distance(uav) || flown-over-assemblies(uav))
+
+// The take of action checks the preconditions and creates the fly safe duty
+Act take-off
+  Actor remote-pilot
+  Recipient uav
+  Related to mtom, location
+  Conditioned by !in-flight(uav) && mtom >= 3 && (location == "Spain" || location == "Belgium")
+  Creates 
+    in-flight(uav),
+    duty-fly-safe(uav, uav)
+
+// When landing, the fly safe duty is removed
+Act land
+  Actor remote-pilot
+  Recipient uav
+  Conditioned by in-flight(uav)
+  Terminates in-flight(uav), duty-fly-safe(uav, uav)
+
+##
+
+Fact remote-pilot Identified by Alice, Bob
+Fact uav Identified by DroneOfAlice, DroneOfBob
+Fact mtom Identified by 1..5
+Fact location Identified by Spain, Belgium, Netherlands
+
+###
+
+take-off.
+land.
+
+####
+
+// Ensure the the drone of Bob is kept at a safe distance when taking off
++kept-at-safe-distance(DroneOfBob).
+
+// The actual take-off (notice that nothing is defined for location=Netherlands; in that case, therefore, this is a non-compliant action)
+take-off(remote-pilot=Bob, uav=DroneOfBob, mtom=3, location=Belgium).
+
+// Uncomment one of the following lines to violate the duty
+//+flown-over-assemblies(DroneOfBob).
+//-kept-at-safe-distance(DroneOfBob).
+
+// Now land the drone
+land(Bob, DroneOfBob).
+
+// The next line is a query; when clicking on "query" in the output, a list of all enabled actions is shown
+?in-flight(uav).

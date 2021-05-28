@@ -1,0 +1,45 @@
+#
+
+Fact person
+Fact uav
+Fact claimant
+
+Placeholder remote-pilot For person
+
+Fact operator-of Identified by uav * person
+Fact has-safe-distance Identified by uav
+
+Duty fly-safe-distance
+  Holder remote-pilot
+  Claimant claimant
+  Related to uav
+  Violated when operator-of(uav, remote-pilot) && !has-safe-distance(uav)
+
+Act take-off
+  Actor remote-pilot
+  Recipient uav
+  Creates operator-of(uav, remote-pilot), fly-safe-distance(remote-pilot=remote-pilot, uav=uav)
+
+Act land
+  Actor remote-pilot
+  Recipient uav
+  Terminates operator-of(uav, remote-pilot)
+
+##
+
+Fact person Identified by Alice, Bob
+Fact uav Identified by DroneOfAlice, DroneOfBob
+Fact claimant Identified by Everyone
+
+###
+
+take-off.
+land.
+
+####
+
++has-safe-distance(DroneOfAlice).
+take-off(Alice, DroneOfAlice).
+land(Alice, DroneOfAlice).
+
+take-off(Bob, DroneOfBob).
